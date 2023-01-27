@@ -124,7 +124,7 @@ while [ "$#" != 0 ]; do
       [ -z "$FINST" ] && FINST="finst"; shift ;;
 
     -j | --jemalloc )
-       IGPROF_MALLOC_LIB='libjemalloc.so.1'; shift ;;
+       IGPROF_MALLOC_LIB='libjemalloc.so.2'; shift ;;
 
     -np | --energy-profiler )
       [ -z "$NRG" ] && NRG="nrg"; shift ;;
