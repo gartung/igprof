@@ -80,8 +80,8 @@ LIBHOOK(2, int, doclock_getres, _main,
         "clock_getres", 0, "libc.so.6")
 
 LIBHOOK(1, int, dosigreturn, _main,
-        (unsigned long __unused),
-        (__unused),
+        (unsigned long __dummy),
+        (__dummy),
         "sigreturn", 0, "libc.so.6")
 #endif /* defined(__aarch64__) */
 
@@ -199,7 +199,7 @@ dumpOneProfile(IgProfDumpInfo &info, IgProfTrace::Stack *frame)
 
       if (UNLIKELY(! symname || ! *symname))
       {
-        symlen = sprintf(symgen, "@?%p", sym->address);
+        symlen = snprintf(symgen, 32, "@?%p", sym->address);
         symname = symgen;
 	ASSERT(symlen <= sizeof(symgen));
       }
@@ -328,7 +328,7 @@ dumpAllProfiles(void *arg)
 
     timeval tv;
     gettimeofday(&tv, 0);
-    sprintf(outname, "|gzip -c>igprof.%.100s.%ld.%f.gz",
+    snprintf(outname, MAX_FNAME, "|gzip -c>igprof.%.100s.%ld.%f.gz",
             progname, (long) getpid(), tv.tv_sec + 1e-6*tv.tv_usec);
     tofile = outname;
   }
@@ -343,7 +343,7 @@ dumpAllProfiles(void *arg)
   else
   {
     char clockres[32];
-    size_t clockreslen = sprintf(clockres, "%f", s_clockres);
+    size_t clockreslen = snprintf(clockres, 32, "%f", s_clockres);
     size_t prognamelen = strlen(program_invocation_name);
     info->io.attach(fileno(info->output));
     info->io.put("P=(HEX ID=").put(getpid())
@@ -689,10 +689,10 @@ doclock_getres(IgHook::SafeData<igprof_doclock_getres_t> &hook,
 
 static int
 dosigreturn(IgHook::SafeData<igprof_dosigreturn_t> &hook,
-               unsigned long __unused)
+               unsigned long __dummy)
 {
   igprof_disable();
-  int ret = hook.chain(__unused);
+  int ret = hook.chain(__dummy);
   igprof_enable();
 
   return ret;
