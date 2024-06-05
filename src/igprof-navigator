@@ -39,7 +39,7 @@ import sys
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import re
 import locale
-from locale import format
+from locale import format_string
 import os
 import cgi
 import html
@@ -239,11 +239,11 @@ def summary(database, out, cumulative):
     path = join(absPath, str(rank))
     if float(total_count):
       percent = 100*(float(count) / float(total_count))
-      pct = locale.format("%.2f", percent, 2)
+      pct = locale.format_string("%.2f", percent, 2)
     else:
       pct = "-.--"
-    count = locale.format(countFormat, int(count) * multiplier, True)
-    calls = locale.format("%d", int(calls), True)
+    count = locale.format_string(countFormat, int(count) * multiplier, True)
+    calls = locale.format_string("%d", int(calls), True)
     out.write("""<tr>
                   <td><a href="%s">%s</a></td>
                   <td>%s</td>
