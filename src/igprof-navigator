@@ -257,8 +257,8 @@ def summary(database, out, cumulative):
 
 def column(value, isInt):
   if isInt:
-    return "<td>%s</td>" % format("%d", int(value), True)
-  return "<td>%s</td>" % format("%.2f", float(value), True)
+    return "<td>%s</td>" % "{}".format(int(value), True)
+  return "<td>%s</td>" % "{}".format( float(value), True)
 
 # Helper method which formats a number of numeric columns with thousands
 # separator and so on.
@@ -376,7 +376,7 @@ def flatProfile(database, out, rank):
       to_child_counts = int(to_child_counts) * tick_period
       cumulative_counts = int(cumulative_counts) * tick_period
 
-    percent = format("%.2f", float(percent), True)
+    percent = "{}".format(float(percent), True)
     if percent == "-101.00":
       percent = "new"
     name = html.escape(name)
@@ -411,7 +411,7 @@ def flatProfile(database, out, rank):
     kids = int(kids) * tick_period
     cumulative_count = int(cumulative_count) * tick_period
 
-  percent = format("%.2f", float(percent), True)
+  percent = "{}".format(float(percent), True)
   if percent == "-101.00":
     percent = "new"
   out.write("<tbody class='mainrow'>")
@@ -446,7 +446,7 @@ def flatProfile(database, out, rank):
     if isPerfTicks:
       from_parent_counts = int(from_parent_counts) * tick_period
       cumulative_counts = int(cumulative_counts) * tick_period
-    percent = format("%.2f", float(percent), True)
+    percent = "{}".format(float(percent), True)
     if percent == "-101.00":
       percent = "new"
     out.write("""<tr class="childrow"><td></td><td>%s</td>
