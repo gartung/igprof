@@ -257,7 +257,7 @@ def summary(database, out, cumulative):
 
 def column(value, isInt):
   if isInt:
-      return "<td>%s</td>" % "{0:.d}".format(int(value), True)
+    return "<td>%s</td>" % "{0:.d}".format(int(value), True)
   return "<td>%s</td>" % "{0:.2f}".format( float(value), True)
 
 # Helper method which formats a number of numeric columns with thousands
